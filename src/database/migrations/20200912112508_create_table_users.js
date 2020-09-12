@@ -1,4 +1,3 @@
-const { table } = require("..");
 
 exports.up = knex => 
     knex.schema.createTable('users', (table) => {
