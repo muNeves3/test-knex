@@ -5,7 +5,7 @@ exports.seed = function(knex) {
     .then(function () {
       // Inserts seed entries
       return knex('projects').insert([
-        {user_id: 6, title: "Meu projeto"}
+        {user_id: 1, title: "Meu projeto"}
       ]);
     });
 };
