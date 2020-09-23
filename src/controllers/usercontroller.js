@@ -3,8 +3,17 @@ const knex = require('../database');
 module.exports = {
     async index(req, res, next)  {
       try {
+        const { page = 1 } = req.query;
         const results = await knex('users')
-        .where('deleted_at', null);
+        .where('deleted_at', null)
+        .limit(5)
+        .offset((page - 1) * 5);
+
+        const [count] = await knex('users').count();
+        console.log(count);
+
+        res.header('X-Total-Count', count['count']);
+
         return res.json(results);
       }
       catch(error) {
