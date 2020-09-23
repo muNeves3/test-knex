@@ -4,7 +4,7 @@ module.exports = {
     async index(req, res, next)  {
         try {
             const { user_id, page = 1 } = req.query;
-            const query = knex('projects')
+            const query = await knex('projects')
                 .where('deleted_at', null)
                 .limit(5)
                 .offset((page - 1) * 5)
@@ -22,7 +22,7 @@ module.exports = {
 
             const [count] = await countObject;
 
-            res.header('X-Total-Count', count["count"])
+            res.header('X-Total-Count', count["count"]);
 
             const results = await query;
 
