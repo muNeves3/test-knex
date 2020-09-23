@@ -5,5 +5,5 @@
 **Routes**
 
 <p align="center">
-    <img src="./assets/routes.png">
+    <img src="./src/assets/routes.png">
 </p>
