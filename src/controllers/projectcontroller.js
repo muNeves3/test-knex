@@ -1,3 +1,4 @@
+const { andWhereRaw, update } = require('../database');
 const knex = require('../database');
 
 module.exports = {
@@ -5,12 +6,14 @@ module.exports = {
         try {
             const { user_id, page = 1 } = req.query;
             const query = knex('projects')
+                .where('deleted_at', null)
                 .limit(5)
                 .offset((page - 1) * 5)
                 const countObject =  knex('projects').count()
 
             if(user_id) {
                 query
+                    
                     .where({ user_id: user_id })
                     .join('users', 'users.id', '=', 'projects.user_id')
                     .select('projects.*', 'users.username')
@@ -36,6 +39,35 @@ module.exports = {
             await knex('projects').insert({title, user_id});
             return res.status(200).send(); 
         } catch (error) {
+            next(error);
+        }
+    },
+    async update(req, res, next) {
+        try {
+            const { title } = req.body;
+            const { id } = req.params;
+            
+            await knex('projects')
+            .update({ title })
+            .where({ id })
+            
+
+            return res.send();
+        }
+        catch(error) {
+            next(error);
+        }
+    },
+    async delete(req, res, next) {
+        try {
+            const { id } = req.params;
+            await knex('projects')
+            .where({id})
+            .update('deleted_at', new Date())
+
+            return res.send();
+        }
+        catch(error) {
             next(error);
         }
     }
