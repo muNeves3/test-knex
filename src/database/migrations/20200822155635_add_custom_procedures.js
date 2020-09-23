@@ -1,4 +1,3 @@
-const knex = require("..")
 
 const CUSTOM_FUNCTIONS = `
 
@@ -15,5 +14,5 @@ const DROP_CUSTOM_FUNCTIONS = `
 DROP FUNCTION on_update_timestamp()
 `
 
-exports.up = async kenx =>  knex.raw(CUSTOM_FUNCTIONS);    
+exports.up = async knex =>  knex.raw(CUSTOM_FUNCTIONS);    
 exports.down = async knex => knex.raw(DROP_CUSTOM_FUNCTIONS);
