@@ -1,4 +1,3 @@
-const { andWhereRaw, update } = require('../database');
 const knex = require('../database');
 
 module.exports = {

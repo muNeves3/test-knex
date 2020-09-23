@@ -1,10 +1,15 @@
 const knex = require('../database');
 
 module.exports = {
-    async index(req, res)  {
+    async index(req, res, next)  {
+      try {
         const results = await knex('users')
         .where('deleted_at', null);
         return res.json(results);
+      }
+      catch(error) {
+          next(error);
+      }
     },
     async create(req, res, next) {
         try {
